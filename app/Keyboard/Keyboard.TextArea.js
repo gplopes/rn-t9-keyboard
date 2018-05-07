@@ -6,12 +6,12 @@ import Cursor from "./Keyboard.Cursor";
 
 export default class TextArea extends PureComponent {
   render() {
-    const { text } = this.props;
+    const { text, style, textStyle } = this.props;
     const focusLetter = text.slice(-1);
     const _text = text.slice(0, -1);
     return (
-      <View style={styles.textarea}>
-        <Text style={styles.text}>
+      <View style={[styles.textarea, style]}>
+        <Text style={[styles.text, textStyle]}>
           {_text}
           <Cursor>{focusLetter}</Cursor>
         </Text>

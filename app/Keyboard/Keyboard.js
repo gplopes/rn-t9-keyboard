@@ -1,12 +1,11 @@
 import React, { PureComponent, Fragment } from "react";
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, Dimensions, ScrollView } from "react-native";
 import { decodeWords } from "../api/api";
 
 import Key from "./Keyboard.Key";
 import TextArea from "./Keyboard.TextArea";
 
 import styles from "./Keyboard.styles";
-
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 const KEY_SEPARATOR = "|";
@@ -15,8 +14,9 @@ export default class Keyboard extends PureComponent {
   state = {
     typedKeys: "",
     lastClick: null,
-    encodedKeys: ""
+    decodedKeys: ""
   };
+
   // Helpers,
   // Get Number of Keys used to write the
   // last word
@@ -25,7 +25,6 @@ export default class Keyboard extends PureComponent {
     const currentKey = keys.find(key => key.number === Number(number));
     const letterPos = currentKey.letters.findIndex(el => el === letter);
 
-    console.log("currentKey", currentKey);
     return letterPos;
   };
   //
@@ -33,32 +32,42 @@ export default class Keyboard extends PureComponent {
     decodeWords(nextSetOfKeys).then(result => {
       this.setState({
         lastClick: new Date(),
-        encodedKeys: result,
+        decodedKeys: result,
         typedKeys: nextSetOfKeys
       });
     });
   };
-  // Delete Last Key (Only Encoded)
+  // Delete Last Word
   deleteLastWord = () => {
-    const { typedKeys, encodedKeys } = this.state;
-    // @TODO DELETE -> |
+    const { typedKeys, decodedKeys } = this.state;
     const lastKey = typedKeys.slice(-1);
 
     // Delete Backspace
     if (lastKey == "0") {
-      this.requestApi(typedKeys.slice(0,-1));
+      this.requestApi(typedKeys.slice(0, -1));
       return false;
     }
-    const lastLetter = encodedKeys.slice(-1);
+
+    // With keys
+    const lastLetter = decodedKeys.slice(-1);
     const pos = this.findLetterPosition(lastKey, lastLetter) + 1;
-    this.requestApi(typedKeys.slice(0, -Math.abs(pos)));
+
+    let wordKey = typedKeys.slice(0, -Math.abs(pos));
+
+    // Double check if there is SEPARATOR
+    const hasSeparator = wordKey.substr(-1);
+    if (hasSeparator === KEY_SEPARATOR) {
+      wordKey = wordKey.slice(0, -1);
+    }
+
+    this.requestApi(wordKey);
   };
 
   // Clear Both TextAreas
   clearKeys = () => {
     this.setState({
       typedKeys: "",
-      encodedKeys: ""
+      decodedKeys: ""
     });
   };
   trackNextLetter = nextKey => {
@@ -146,11 +155,16 @@ export default class Keyboard extends PureComponent {
   };
   render() {
     const { keys } = this.props;
-    const { typedKeys, encodedKeys } = this.state;
+    const { typedKeys, decodedKeys } = this.state;
     return (
       <Fragment>
-        <TextArea text={encodedKeys} />
-        <TextArea text={typedKeys} />
+        <ScrollView style={styles.wrapTextArea}>
+          <TextArea
+            text={typedKeys}
+            textStyle={{ fontSize: 16, color: "grey" }}
+          />
+          <TextArea text={decodedKeys} />
+        </ScrollView>
         <View style={styles.keyboard}>{keys.map(this.renderKey)}</View>
       </Fragment>
     );

@@ -16,7 +16,7 @@ export default class Cursor extends PureComponent {
   render() {
     return (
       <Animated.Text
-        style={[styles.text, styles.focusLetter, { opacity: this.blink }]}
+        style={[styles.focusLetter, { opacity: this.blink }]}
       >
         {this.props.children}
       </Animated.Text>

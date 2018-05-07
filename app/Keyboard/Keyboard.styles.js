@@ -28,15 +28,18 @@ export default StyleSheet.create({
   },
 
   //
-  textarea: {
+  wrapTextArea: {
     flex: 1,
-    flexWrap: "wrap",
-    width: "100%",
-    minHeight: 100,
-    marginTop: 40,
-    padding: 20,
+    marginTop: 20,
+    width: '100%',
     borderWidth: 1,
     borderColor: "#f1f2f6",
+  },
+  textarea: {
+    flexWrap: "wrap",
+    width: "100%",
+    minHeight: 50,
+    padding: 20,
     //justifyContent: "center"
   },
   title: {
