@@ -8,7 +8,6 @@ import TextArea from "./Keyboard.TextArea";
 import styles from "./Keyboard.styles";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
-const KEY_SEPARATOR = "|";
 
 export default class Keyboard extends PureComponent {
   state = {
@@ -40,6 +39,7 @@ export default class Keyboard extends PureComponent {
   // Delete Last Word
   deleteLastWord = () => {
     const { typedKeys, decodedKeys } = this.state;
+    const { KEY_SEPARATOR } = this.props;
     const lastKey = typedKeys.slice(-1);
 
     // Delete Backspace
@@ -72,7 +72,7 @@ export default class Keyboard extends PureComponent {
   };
   trackNextLetter = nextKey => {
     const { lastClick, typedKeys } = this.state;
-    const { delayClick } = this.props;
+    const { delayClick, KEY_SEPARATOR } = this.props;
     const lastKey = typedKeys.slice(-1);
 
     // Track Click Event in case
@@ -173,6 +173,7 @@ export default class Keyboard extends PureComponent {
 
 Keyboard.defaultProps = {
   keys: [],
+  KEY_SEPARATOR: "",
   keyPerLine: 3,
   delayClick: 1000
 };

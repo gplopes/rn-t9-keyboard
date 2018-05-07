@@ -1,22 +1,8 @@
 import flatten from "lodash/flatten";
 
-const KEY_MAPS = [
-  { number: 1, letters: [".", ",", "!", "?"] },
-  { number: 2, letters: ["a", "b", "c"] },
-  { number: 3, letters: ["d", "e", "f"] },
-  { number: 4, letters: ["g", "h", "i"] },
-  { number: 5, letters: ["j", "k", "l"] },
-  { number: 6, letters: ["m", "n", "o"] },
-  { number: 7, letters: ["p", "q", "r", "s"] },
-  { number: 8, letters: ["t", "u", "v"] },
-  { number: 9, letters: ["w", "x", "y", "z"] },
-  { number: "*", letters: ["Clean"] },
-  { number: 0, letters: ["[Space]"] },
-  { number: "#", letters: ["Delete"] }
-];
+import { KEY_MAPS, KEY_SEPARATOR } from "./keyMap";
 
-const KEY_SEPARATOR = "|";
-
+// Helper
 function getMapKey(number) {
   return KEY_MAPS.find(key => key.number === Number(number));
 }
@@ -60,8 +46,7 @@ function concatWords(words) {
   return joinedWords.join(" ");
 }
 
-
-// Default (Main)
+// Decode Keys
 const decode = function(string) {
   const encodeWords = splitByWords(string);
   const keyLetters = splitByLetters(encodeWords);
@@ -69,13 +54,13 @@ const decode = function(string) {
   const phrase = concatWords(words);
 
   return Promise.resolve(phrase);
-}
+};
 
 const keys = function() {
-  return Promise.resolve(KEY_MAPS);
-}
+  return Promise.resolve({ keys: KEY_MAPS, separator: KEY_SEPARATOR });
+};
 
 export default {
   decode,
   keys
-}
+};
