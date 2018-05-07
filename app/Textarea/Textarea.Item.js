@@ -1,8 +1,8 @@
 import React, { PureComponent } from "react";
 import { View, Text } from "react-native";
 
-import styles from "./Keyboard.styles";
-import Cursor from "./Keyboard.Cursor";
+import styles from "./Textarea.styles";
+import Cursor from "./Textarea.Cursor";
 
 export default class TextArea extends PureComponent {
   render() {

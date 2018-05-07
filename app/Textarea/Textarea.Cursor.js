@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
-import { Animated, Text } from "react-native";
+import { Animated } from "react-native";
 
-import styles from "./Keyboard.styles";
+import styles from "./Textarea.styles";
 
 export default class Cursor extends PureComponent {
   blink = new Animated.Value(1);

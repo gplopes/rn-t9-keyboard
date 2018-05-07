@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 
 import styles from "./Keyboard.styles";
 
@@ -27,5 +27,4 @@ Key.defaultProps = {
   number: 0,
   letters: [],
   style: null,
-  delay: 1000
 };

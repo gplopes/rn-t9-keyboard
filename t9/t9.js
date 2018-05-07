@@ -1,10 +1,10 @@
 import flatten from "lodash/flatten";
 
-import { KEY_MAPS, KEY_SEPARATOR } from "./keyMap";
+import { MAP_KEY, KEY_SEPARATOR } from "./t9.mapKey";
 
 // Helper
 function getMapKey(number) {
-  return KEY_MAPS.find(key => key.number === Number(number));
+  return MAP_KEY.find(key => key.number === Number(number));
 }
 
 // Split By Words (by backspace)
@@ -46,8 +46,34 @@ function concatWords(words) {
   return joinedWords.join(" ");
 }
 
+////
+
+const findLetterPosition = letter => {
+  const currentKey = MAP_KEY.find(key => {
+    return key.letters.find(q => q === letter);
+  });
+  const letterPos = currentKey.letters.findIndex(el => el === letter);
+  const encode = new Array(letterPos + 1).fill(currentKey.number);
+
+  // Add Delimiter
+  encode.map((item, index) => {
+    if (index + 1 === currentKey.letters.length) {
+      encode.splice(index + 1, 0, "|");
+    }
+  });
+  console.log(encode.join(""));
+  return encode.join("");
+};
+
+// Encode Words
+export const getEncode = function(word) {
+  const letters = word.split("");
+  const result = letters.map(findLetterPosition).join("");
+  return result;
+};
+
 // Decode Keys
-const decode = function(string) {
+export const getDecode = function(string) {
   const encodeWords = splitByWords(string);
   const keyLetters = splitByLetters(encodeWords);
   const words = keyToAlphabet(keyLetters);
@@ -56,11 +82,8 @@ const decode = function(string) {
   return Promise.resolve(phrase);
 };
 
-const keys = function() {
-  return Promise.resolve({ keys: KEY_MAPS, separator: KEY_SEPARATOR });
-};
 
 export default {
-  decode,
-  keys
+  getDecode,
+  getEncode
 };

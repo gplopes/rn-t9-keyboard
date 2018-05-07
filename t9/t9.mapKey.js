@@ -1,4 +1,4 @@
-const KEY_MAPS = [
+export const MAP_KEY = [
   { number: 1, letters: [".", ",", "!", "?"] },
   { number: 2, letters: ["a", "b", "c"] },
   { number: 3, letters: ["d", "e", "f"] },
@@ -13,9 +13,4 @@ const KEY_MAPS = [
   { number: "#", letters: ["Delete"] }
 ];
 
-const KEY_SEPARATOR = "|";
-
-export {
-  KEY_MAPS,
-  KEY_SEPARATOR
-}
+export const KEY_SEPARATOR = "|";
