@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 import { View, Dimensions } from "react-native";
 
 import Key from "./Keyboard.Key";
@@ -29,4 +30,10 @@ Keyboard.defaultProps = {
   keys: [],
   onPress: function() {},
   keyPerLine: 3
+};
+
+Keyboard.propTypes = {
+  keys: PropTypes.array,
+  onPress: PropTypes.func.isRequired,
+  keyPerLine: PropTypes.number,
 };

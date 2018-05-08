@@ -1,5 +1,4 @@
 import flatten from "lodash/flatten";
-
 import { MAP_KEY, KEY_SEPARATOR } from "./t9.mapKey";
 
 // Helper

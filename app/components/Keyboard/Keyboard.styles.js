@@ -19,11 +19,11 @@ export default StyleSheet.create({
   },
   number: {
     color: "white",
-    fontSize: 30,
+    fontSize: 27,
     fontWeight: "bold"
   },
   letter: {
     color: "#7f8fa6",
-    fontSize: 17
+    fontSize: 15
   },
 });

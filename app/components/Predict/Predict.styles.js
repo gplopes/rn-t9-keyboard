@@ -12,9 +12,9 @@ export default StyleSheet.create({
     paddingHorizontal: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 10,
+    marginHorizontal: 6,
     height: 40,
-    minWidth: 100,
+    minWidth: 90,
   },
   itemText: {
     color: "#2f3542"

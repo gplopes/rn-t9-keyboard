@@ -34,7 +34,7 @@ export const getWordsByNumber = number => {
 
   // Search Words
   for (let i = 0; i < keyList.length; i++) {
-    if (keyList[i] <= 1) return false;
+    if (keyList[i] <= 1) return [];
     list = getWordsByLetters(keyList[i], i, wordLength);
   }
 

@@ -5,22 +5,38 @@ The project contains a simulation of the t9 old school keyboard using RN.
 **this project is just demonstration, please don't use for real production.
 
 ### Component Structure
-1. Keyboard/
+1. **Keyboard/**
   ``Keyboard`` (Main/Logic)
-  `` .Cursor`` (Cursor Animation)
   ``.Key`` (Single Key Component)
-  ``.TextArea`` (Text Wrap Component)
   ``.styles`` (Keyboard global styles)
------
-  2. Api 
-  - ``fetchKeys()`` (Fetch Keyboard Keys - GET)
-  - ``decodeWords()`` (Decode Words by key numbers - POST)
+
+2. **Textarea/**
+  ``.Textarea`` (Textarea Wrap Component)
+  ``.Item`` (Textarea Component)
+  ``.Cursor`` (Cursor Animation)
+  ``.styles`` (Textarea global styles)
+
+3. **Predict/**
+  ``.Predict`` (Main/List)
+  ``.Item`` (List Item)
+  ``.styles`` (Predict global styles)
+
+4. **shared/**
+  ``CText`` (Custom Global Text Component)
+
+5. **T9/**
+  ``T9`` (Logic-Decode/Encode)
+  ``.mapKeys`` (Keys & Letters)
+  ``.helpers`` (shared functions)
+
+6. **Api/**
+``fetchPredictWords()`` (Fetch Predict Words)
+
 
   ---
-
-  3. Server
-  - ``mockServer`` - Mockup for server-side. (JS)
-  - ``keyMap`` - Keys database.
+  7. **Server/**
+  - ``1000words`` (Words array)
+  - ``getWordsByNumber()`` (MockServer)
 ---
 
   ### How it works?
