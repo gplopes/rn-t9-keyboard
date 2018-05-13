@@ -1,44 +1,47 @@
+
 # T9 Keyboard
+t9 old school keyboard using RN.
 
-The project contains a simulation of the t9 old school keyboard using RN.
+## Install
 
-**this project is just demonstration, please don't use for real production.
+```
+git clone https://github.com/gplopes/rn-t9-keyboard.git
+cd rn-t9-keyboard
+npm install
+```
 
-### Component Structure
-1. **Keyboard/**
-  ``Keyboard`` (Main/Logic)
-  ``.Key`` (Single Key Component)
-  ``.styles`` (Keyboard global styles)
+And run it in development mode you have couple of options"
 
-2. **Textarea/**
-  ``.Textarea`` (Textarea Wrap Component)
-  ``.Item`` (Textarea Component)
-  ``.Cursor`` (Cursor Animation)
-  ``.styles`` (Textarea global styles)
+1.  Use Expo XDE
 
-3. **Predict/**
-  ``.Predict`` (Main/List)
-  ``.Item`` (List Item)
-  ``.styles`` (Predict global styles)
+```
+https://www.github.com/expo/xde/releases
+```
 
-4. **shared/**
-  ``CText`` (Custom Global Text Component)
+2.  Expo CLI
 
-5. **T9/**
-  ``T9`` (Logic-Decode/Encode)
-  ``.mapKeys`` (Keys & Letters)
-  ``.helpers`` (shared functions)
+```
+npm install exp --g
+expo start
+```
 
-6. **Api/**
-``fetchPredictWords()`` (Fetch Predict Words)
+3.  React Native CLI
 
+```
+npm install react-native-cli --g
+react-native start
+```
 
-  ---
-  7. **Server/**
-  - ``1000words`` (Words array)
-  - ``getWordsByNumber()`` (MockServer)
----
+## Test
 
-  ### How it works?
+```
+npm test
+```
 
-  The app will decode on real time as soon as the user start typing. The user should be able to write full phrases and delete them.
+## What's inside
+
+* Expo (SDK) https://expo.io
+* Jest
+
+#### TODO
+* Improve the predicted words list not only with words but also with the correspond keys.

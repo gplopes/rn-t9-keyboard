@@ -1,6 +1,6 @@
 import WORD_LIST from "./1000words";
 
-var map = {
+var keyMap = {
   2: ["a", "b", "c"],
   3: ["d", "e", "f"],
   4: ["g", "h", "i"],
@@ -11,32 +11,27 @@ var map = {
   9: ["w", "x", "y", "z"]
 };
 
-const getWordsByLetters = (key, index, wordLength) => {
+export const getWordsByLetters = ({ key, index, wordLength }) => {
   const matches = [];
-
-  for (var letter in map[key]) {
-    for (var word in WORD_LIST) {
-      if (
-        wordLength == WORD_LIST[word].length &&
-        map[key][letter] == WORD_LIST[word][index]
-      ) {
-        matches.push(WORD_LIST[word]);
+  for (let letter of keyMap[key]) {
+    WORD_LIST.forEach(word => {
+      if (wordLength === word.length && letter === word[index]) {
+        matches.push(word);
       }
-    }
+    });
   }
   return matches;
 };
 
 export const getWordsByNumber = number => {
-  let list = [];
-  const keyList = number.toString().split("");
-  const wordLength = keyList.length;
+  const reqNumber = number.toString().split("");
+  const wordLength = reqNumber.length;
+  let suggestionsResponse = [];
 
-  // Search Words
-  for (let i = 0; i < keyList.length; i++) {
-    if (keyList[i] <= 1) return [];
-    list = getWordsByLetters(keyList[i], i, wordLength);
-  }
+  reqNumber.forEach((key, index) => {
+    if (!Number.isInteger(Number(key)) || key <= 1) return [];
+    suggestionsResponse = getWordsByLetters({ key, index, wordLength });
+  });
 
-  return list;
+  return [...suggestionsResponse];
 };

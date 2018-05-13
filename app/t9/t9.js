@@ -2,52 +2,63 @@ import flatten from "lodash/flatten";
 import { MAP_KEY, KEY_SEPARATOR } from "./t9.mapKey";
 
 // Helper
-function getMapKey(number) {
+export function getMapKey(number) {
   return MAP_KEY.find(key => key.number === Number(number));
 }
 
 // Split By Words (by backspace)
-function splitByWords(string) {
+export function splitByWords(string) {
   return string.split("0");
 }
 
 // Split By Letters with Separator;
-function splitBySeparator(words) {
+export function splitBySeparator(words) {
+  if (typeof words === "string") return words.split(KEY_SEPARATOR);
   return words.map(word => word.split(KEY_SEPARATOR));
 }
 
-function splitByLetters(words) {
+// Split the letters (numbers)
+const _getSplitNumbers = stringNumber =>
+  stringNumber.split(/(\9+|8+|7+|6+|5+|4+|3+|2+|1+|0+)/g).filter(q => q);
+
+export function splitByLetters(words) {
+  if (typeof words === "string") return _getSplitNumbers(words);
+
   const wordsArray = splitBySeparator(words);
   return wordsArray.map(group => {
-    const counter = group.map(eachGroup => {
-      return eachGroup
-        .split(/(\9+|8+|7+|6+|5+|4+|3+|2+|1+|0+)/g)
-        .filter(q => q);
-    });
+    const counter = group.map(_getSplitNumbers);
     return flatten(counter);
   });
+
   return wordsArray;
 }
 
-function keyToAlphabet(encodeWords) {
+// Convert Key to Alphabet
+const getKeyConverted = letter => {
+  const mapKey = getMapKey(letter[0]);
+  const letterPos = letter.length;
+  const letterAlphabet = mapKey.letters[letterPos - 1];
+  return letterAlphabet;
+};
+
+export function keyToAlphabet(encodeWords) {
+  if (typeof encodeWords === "string") {
+    return encodeWords.split("").map(getKeyConverted);
+  }
   return encodeWords.map(word => {
-    return word.map(letter => {
-      const mapKey = getMapKey(letter[0]);
-      const letterPos = letter.length;
-      const letterAlphabet = mapKey.letters[letterPos - 1];
-      return letterAlphabet;
-    });
+    return word.map(getKeyConverted);
   });
 }
 
-function concatWords(words) {
+// Concat the words
+export function concatWords(words) {
   const joinedWords = words.map(word => word.join(""));
   return joinedWords.join(" ");
 }
 
 ////
 
-const findLetterPosition = letter => {
+export const findLetterPosition = letter => {
   const currentKey = MAP_KEY.find(key => {
     return key.letters.find(q => q === letter);
   });
@@ -60,7 +71,6 @@ const findLetterPosition = letter => {
       encode.splice(index + 1, 0, "|");
     }
   });
-  console.log(encode.join(""));
   return encode.join("");
 };
 
@@ -80,7 +90,6 @@ export const getDecode = function(string) {
 
   return Promise.resolve(phrase);
 };
-
 
 export default {
   getDecode,
